@@ -1,0 +1,82 @@
+@import 'mixins';
+
+.home {
+  counter-reset: steps;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.code {
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+
+@media (max-width: 600px) {
+}
+
+.step {
+  margin-bottom: 32px;
+  width: 100%;
+  padding: 0 32px;
+  text-align: center;
+  max-width: 368px;
+  position: relative;
+
+  @include tablet() {
+    box-sizing: content-box;
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__text {
+    margin-bottom: 16px;
+    text-align: center;
+    position: relative;
+
+    @include tablet() {
+      position: static;
+      text-align: left;
+    }
+
+    &::before {
+      counter-increment: steps;
+      content: counter(steps) ". ";
+
+      @include tablet() {
+        position: absolute;
+        left: -10px;
+        font-family: 'Shnobel', sans-serif;
+        font-size: 44px;
+        line-height: 46px;
+      }
+
+      [disabled] & {
+        content: url(../public/checkbox.svg);
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+}
+
+.the_title {
+  font-size: 27px;
+  margin-bottom: 16px;
+  text-transform: lowercase;
+  max-width: 320px;
+
+
+  @include tablet {
+    font-size: 50px;
+    line-height: 1.1;
+  }
+}

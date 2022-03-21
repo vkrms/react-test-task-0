@@ -1,0 +1,38 @@
+.heading {
+  font-size: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.s {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  color: #7F4156;
+  display: inline-block;
+  padding: 0 9px;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 64%;
+    width: 100%;
+    height: 3px;
+    background: #7f4156;
+  }
+}
+
+.large {
+  font-size: 100px;
+}
+
+.character {
+  background: url('../public/character.svg') center/cover no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
