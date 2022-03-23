@@ -1,0 +1,85 @@
+@import '../styles/mixins';
+
+.socials__btn {
+    width: 50px;
+    height: 50px;
+    appearance: none;
+    border: none;
+    border-radius: 100%;
+    display: inline-block;
+    margin-inline: 0 16px;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+
+    &:last-child {
+      margin-inline: 0;
+    }
+
+    &.vk {
+      background-color: #45668E;
+
+      &::before {
+        content: url('../public/vk.svg');
+        height: 15px;
+      }
+    }
+
+    &.fb {
+      background-color: #3B5998;
+
+      &::before {
+        content: url('../public/fb.svg');
+      }
+    }
+
+    &.tw {
+      background-color: #00ACED;
+
+      &::before {
+        content: url('../public/tw.svg');
+        height: 18px;
+      }
+    }
+
+    &.ok {
+      background-color: #EB722E;
+
+      &::before {
+        content: url('../public/ok.svg');
+      }
+    }
+
+    &::after {
+      content: url('../public/heart.svg');
+      transform: scale(0);
+    }
+
+    &::before, &::after {
+      position: absolute;
+      margin: auto;
+      width: fit-content;
+      height: fit-content;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transition: all .3s;
+    }
+
+    &:hover {
+      &::before {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      &::after {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @include tablet() {
+      margin-inline: 0 32px;
+    }
+}
