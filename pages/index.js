@@ -2,8 +2,10 @@ import Socials from '../components/socials'
 import Form from '../components/form'
 import styles from '../styles/home.module.scss'
 import { useState, useEffect } from 'react'
+import { updateUser } from '../libs/api'
 
 export default function Home() {
+  const [token, setToken] = useState(null)
   const [shareDone, setShareDone] = useState(false)
   const [emailDone, setEmailDone] = useState(false)
 
@@ -26,6 +28,14 @@ export default function Home() {
 
   })
 
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    updateUser(token, { email: e.target.email.value })
+    console.log('email', e.target.email.value)
+    setEmailDone(true)
+  }
+
   return (
       <div className={styles.home}>
 
@@ -40,7 +50,7 @@ export default function Home() {
         <div className={styles.step} disabled={emailDone}>
           <div className={styles.step__text}>Оставь почту:</div>
 
-          <Form onComplete={() => { setEmailDone(true) }}/>
+          <Form onSubmit={handleSubmit}/>
         </div>
 
       </div>
