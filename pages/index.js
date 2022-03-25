@@ -22,12 +22,19 @@ export default function Home() {
           })
           .then(data => {
             window.localStorage.setItem('testTaskToken', data.token)
+            setToken(data.token)
           })
+        return
       }
-    })()
 
+      setToken(token)
+    })()
   })
 
+  function handleShare() {
+    setShareDone(true) // TODO: do this on successful update
+    updateUser(token, { shared: true })
+  }
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -44,7 +51,7 @@ export default function Home() {
         <div className={styles.step} disabled={shareDone}>
           <div className={styles.step__text}>Поделись с друзьями:</div>
 
-          <Socials onComplete={() => { setShareDone(true) }}/>
+          <Socials onComplete={handleShare}/>
         </div>
 
         <div className={styles.step} disabled={emailDone}>
