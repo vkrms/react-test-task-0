@@ -6,12 +6,10 @@ export default function handler(req, res) {
   const { token, shared, email } = req.body
 
   async function main() {
-    const updatedUser = await prisma.user.update({
+    return await prisma.user.update({
       where: { token },
       data: { shared, email },
     })
-
-    return updatedUser
   }
 
   main()

@@ -2,24 +2,19 @@ import Socials from '../components/socials'
 import Form from '../components/form'
 import styles from '../styles/home.module.scss'
 import { useState, useEffect } from 'react'
-import { updateUser } from '../libs/api'
+import { createUser, updateUser } from '../libs/api-calls'
 
 export default function Home() {
-  const [token, setToken] = useState(null)
+  const [token, setToken]         = useState(null)
   const [shareDone, setShareDone] = useState(false)
   const [emailDone, setEmailDone] = useState(false)
 
   useEffect(() => {
-    // create user on page load if there's no token in the localstorage
-
     (function createUserOnFirstVisit() {
       const token = window.localStorage.getItem('testTaskToken')
 
       if (!token) {
-        fetch('/api/create-user')
-          .then((res) => {
-            return res.json()
-          })
+        createUser()
           .then(data => {
             window.localStorage.setItem('testTaskToken', data.token)
             setToken(data.token)
@@ -31,17 +26,22 @@ export default function Home() {
     })()
   })
 
-  function handleShare() {
-    setShareDone(true) // TODO: do this on successful update
-    updateUser(token, { shared: true })
+  async function handleShare() {
+    await updateUser(token, { shared: true })
+    setShareDone(true)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
+
     updateUser(token, { email: e.target.email.value })
-    console.log('email', e.target.email.value)
-    setEmailDone(true)
-  }
+      .then(() => {
+        setEmailDone(true)
+      
+        // maybe collect more emails from the same browser
+        window.localStorage.removeItem('testTaskToken')
+      })
+}
 
   return (
       <div className={styles.home}>
