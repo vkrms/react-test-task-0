@@ -1,6 +1,9 @@
 import styles from './socials.module.scss'
+import { useDispatch } from 'react-redux'
+import { share } from './socialsSlice'
+import { updateUser } from '../libs/api-calls'
 
-function openWindow(social, callback) {
+function openWindow(social, dispatch) {
   const popupX = window.innerWidth / 2 - 300
   const popupY = window.innerHeight / 2 - 300
   const windowCfg = `height=600, width=600, top=${popupY}, left=${popupY}, toolbar=0, location=0, menubar=0, directories=0, scrollbars=0`
@@ -27,10 +30,12 @@ function openWindow(social, callback) {
   const popup = window.open(url + window.location.href, 'share', windowCfg)
 
   // check if popup closed
-  const closedInterval = setInterval(function () {
+  const closedInterval = setInterval(async () => {
     if (popup.closed) {
       console.log('popup closed!')
-      callback()
+      const token = window.localStorage.getItem('testTaskToken')
+      await updateUser(token, { shared: true })
+      dispatch(share())
       clearInterval(closedInterval)
     }
   }, 100);
@@ -38,8 +43,10 @@ function openWindow(social, callback) {
 }
 
 
-export default function Socials(props) {
+export default function Socials() {
   const socials = ['vk', 'fb', 'tw', 'ok']
+
+  const dispatch = useDispatch()
 
   return (
     <div className="email">
@@ -48,7 +55,7 @@ export default function Socials(props) {
           <button
             className={`${styles.socials__btn} ${styles[social]}`}
             key={social}
-            onClick={() => { openWindow(social, props.onComplete) }}
+            onClick={() => { openWindow(social, dispatch) }}
           />
         )
       })}

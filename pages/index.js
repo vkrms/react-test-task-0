@@ -3,33 +3,29 @@ import Form from '../components/form'
 import styles from '../styles/home.module.scss'
 import { useState, useEffect } from 'react'
 import { createUser, updateUser } from '../libs/api-calls'
+import { useSelector } from 'react-redux'
+
+let token = null
 
 export default function Home() {
-  const [token, setToken]         = useState(null)
-  const [shareDone, setShareDone] = useState(false)
   const [emailDone, setEmailDone] = useState(false)
 
   useEffect(() => {
     (function createUserOnFirstVisit() {
-      const token = window.localStorage.getItem('testTaskToken')
+      token = window.localStorage.getItem('testTaskToken')
 
       if (!token) {
         createUser()
           .then(data => {
             window.localStorage.setItem('testTaskToken', data.token)
-            setToken(data.token)
           })
         return
       }
-
-      setToken(token)
     })()
-  })
+  }, []) // only run on first render
 
-  async function handleShare() {
-    await updateUser(token, { shared: true })
-    setShareDone(true)
-  }
+  const shared = useSelector(state => state.shared)
+
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -37,21 +33,21 @@ export default function Home() {
     updateUser(token, { email: e.target.email.value })
       .then(() => {
         setEmailDone(true)
-      
+
         // maybe collect more emails from the same browser
         window.localStorage.removeItem('testTaskToken')
       })
-}
+  }
 
   return (
       <div className={styles.home}>
 
         <h1 className={styles.the_title}>Чтобы выиграть путешествие</h1>
 
-        <div className={styles.step} disabled={shareDone}>
+        <div className={styles.step} disabled={shared}>
           <div className={styles.step__text}>Поделись с друзьями:</div>
 
-          <Socials onComplete={handleShare}/>
+          <Socials/>
         </div>
 
         <div className={styles.step} disabled={emailDone}>
