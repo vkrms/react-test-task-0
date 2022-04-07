@@ -8,9 +8,12 @@ import { useSelector } from 'react-redux'
 let token = null
 import API from '../libs/api-calls'
 import { updateUser } from '../redux/userSlice'
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [emailDone, setEmailDone] = useState(false)
+
+  const router = useRouter()
 
   useEffect(() => {
     (function userGetOrCreate() {
@@ -31,6 +34,8 @@ export default function Home() {
         // maybe collect more emails from the same browser
         window.localStorage.removeItem('testTaskToken')
       })
+  if (shared && submitted) {
+    router.replace('/success')
   }
 
   return (
