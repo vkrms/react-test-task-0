@@ -1,21 +1,23 @@
 import Socials from '../components/socials'
 import Form from '../components/form'
+
 import styles from '../styles/home.module.scss'
 import { useState, useEffect } from 'react'
-import { createUser, updateUser } from '../libs/api-calls'
 import { useSelector } from 'react-redux'
 
 let token = null
+import API from '../libs/api-calls'
+import { updateUser } from '../redux/userSlice'
 
 export default function Home() {
   const [emailDone, setEmailDone] = useState(false)
 
   useEffect(() => {
     (function userGetOrCreate() {
-      newUser()
+      API.newUser()
         .then(user => {
           // store user in redux
-          dispatch(write(user))
+          dispatch(updateUser(user))
 
           window.localStorage.setItem('testTaskToken', user.token)
         })

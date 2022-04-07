@@ -1,7 +1,8 @@
 import styles from './socials.module.scss'
 import { useDispatch } from 'react-redux'
 import { share } from './socialsSlice'
-import { updateUser } from '../libs/api-calls'
+import { updateUser } from '../redux/userSlice'
+import API from '../libs/api-calls'
 
 function openWindow(social, dispatch) {
   const popupX = window.innerWidth / 2 - 300
@@ -34,8 +35,12 @@ function openWindow(social, dispatch) {
     if (popup.closed) {
       console.log('popup closed!')
       const token = window.localStorage.getItem('testTaskToken')
-      await updateUser(token, { shared: true })
+      const user = await API.updateUser({
+        id,
+        shared: true,
+      })
       dispatch(share())
+      dispatch(updateUser(user))
       clearInterval(closedInterval)
     }
   }, 100);
