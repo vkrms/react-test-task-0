@@ -1,24 +1,43 @@
 import styles from './form.module.scss'
 import { useState } from 'react'
 
-console.log({styles})
+import { useDispatch, useSelector } from 'react-redux'
+import { submit } from '../redux/formSlice'
+import { write } from '../redux/userSlice'
+import { updateUser } from '../libs/api-calls'
 
-export default function Form(props) {
+export default function Form() {
   const [validity, setValidity] = useState(false)
 
   function changeHandler(e) {
     setValidity(e.target.validity.valid)
   }
 
+  const dispatch = useDispatch()
+  const id = useSelector(state => state.user.id)
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+
+    const user = await updateUser({
+      id,
+      email: e.target.email.value
+    })   
+
+    if (user) {     
+      dispatch(submit())
+      dispatch(write(user))
+      // allows to collect more emails from the same browser
+      window.localStorage.removeItem('testTaskToken')
+    }
+  }
+
   return (
-    <form className="form" onSubmit={props.onSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
 
       <input type="email" name="email" className={styles.input} onChange={changeHandler} required/>
 
       <button className={styles.submit} disabled={!validity}>Отправить</button>
-
-      <pre>{validity.toString()}</pre>
-
     </form>
   )
 }
