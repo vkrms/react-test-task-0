@@ -11,24 +11,16 @@ export default function Home() {
   const [emailDone, setEmailDone] = useState(false)
 
   useEffect(() => {
-    (function createUserOnFirstVisit() {
-      token = window.localStorage.getItem('testTaskToken')
+    (function userGetOrCreate() {
+      newUser()
+        .then(user => {
+          // store user in redux
+          dispatch(write(user))
 
-      if (!token) {
-        createUser()
-          .then(data => {
-            window.localStorage.setItem('testTaskToken', data.token)
-          })
-        return
-      }
+          window.localStorage.setItem('testTaskToken', user.token)
+        })
     })()
-  }, []) // only run on first render
-
-  const shared = useSelector(state => state.shared)
-
-
-  function handleSubmit(e) {
-    e.preventDefault()
+  }, [dispatch]) // only run on first render
 
     updateUser(token, { email: e.target.email.value })
       .then(() => {

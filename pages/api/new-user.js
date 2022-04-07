@@ -2,10 +2,23 @@ import { PrismaClient } from '@prisma/client'
 import randomstring from 'randomstring'
 
 export default function handler(req, res) {
+
   const prisma = new PrismaClient()
+  const token = req.body.token
 
   async function main() {
-    const user = await prisma.user.create({
+
+    if (token) {
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          token,
+        }
+      })
+  
+      if (existingUser) return existingUser
+    }
+
+    const newUser = await prisma.user.create({
       data: {
         shared: false,
         email: null,
@@ -13,12 +26,12 @@ export default function handler(req, res) {
       }
     })
 
-    return user
+    return newUser
   }
 
   main()
-    .then((mainResult) => {
-      res.status(200).json(mainResult)
+    .then((user) => {
+      res.status(200).json(user)
     })
     .catch(e => {
       throw e
