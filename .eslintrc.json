@@ -6,11 +6,14 @@
     "browser": true
   },
   "rules": {
-    "no-undef": "ERROR",
-    "no-undefined": "OFF",
-    "no-unused-vars": "WARN",
-    "no-console": "off",
-    "quotes": "WARN"
+    "no-undef": 2,
+    "no-undefined": 0,
+    "no-unused-vars": 1,
+    "no-console": 0,
+    "quotes": [
+      2,
+      "single"
+    ]
   },
   "plugins": []
 }
