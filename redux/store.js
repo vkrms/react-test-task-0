@@ -1,8 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import socialsSliceReducer from '../components/socialsSlice'
+import rootReducer from './reducer'
 
-const store = configureStore({
-    reducer: socialsSliceReducer,
-})
+const store = configureStore({reducer: rootReducer})
 
 export default store
