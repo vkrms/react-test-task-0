@@ -56,13 +56,15 @@
         left: -10px;
         font-family: 'Shnobel', sans-serif;
         font-size: 44px;
-        line-height: 46px;
+        line-height: 0.6;
       }
 
       [disabled] & {
         content: url(../public/checkbox.svg);
         position: absolute;
         left: 0;
+        line-height: 0.4;
+        left: -12px;
       }
     }
   }
@@ -78,5 +80,6 @@
   @include tablet {
     font-size: 50px;
     line-height: 1.1;
+    margin-bottom: 40px;
   }
 }
