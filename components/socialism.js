@@ -10,8 +10,6 @@ function openWindow(social, dispatch, id) {
   const windowCfg = `height=600, width=600, top=${popupY}, left=${popupX}, toolbar=0, location=0, menubar=0, directories=0, scrollbars=0`
 
   const url = {
-    vk: 'https://vk.com/share.php?url=',
-    ok: 'https://connect.ok.ru/offer?url=',
     fb: 'https://www.facebook.com/sharer/sharer.php?u=',
     tw: 'https://twitter.com/intent/tweet/?url=',
   }[social]
