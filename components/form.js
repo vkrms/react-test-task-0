@@ -35,9 +35,9 @@ export default function Form() {
   return (
     <form className="form" onSubmit={handleSubmit}>
 
-      <input type="email" name="email" className={styles.input} onChange={changeHandler} required/>
+      <input type="email" name="email" className={styles.input} onChange={changeHandler} required />
 
-      <button className={styles.submit} disabled={!validity}>Отправить</button>
+      <button className={styles.submit} disabled={!validity}>Submit</button>
     </form>
   )
 }

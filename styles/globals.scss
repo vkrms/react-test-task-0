@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import 'mixins';
 
 @font-face {
-    font-family: 'Shnobel';
-    src: url('../public/fonts/Shnobelregular.woff2') format('woff2'),
-        url('../public/fonts/Shnobelregular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  // font-family: 'Shnobel';
+  // src: url('../public/fonts/Shnobelregular.woff2') format('woff2'),
+  //   url('../public/fonts/Shnobelregular.woff') format('woff');
+  // font-weight: normal;
+  // font-style: normal;
+  // font-display: swap;
 }
 
 
@@ -15,10 +15,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Nunito', 'Open Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: #CD718E;
-  color: #fff;
+  color: #000;
 }
 
 a {
@@ -30,9 +30,14 @@ a {
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
-  font-family: 'Shnobel', display;
+  font-family: 'Nunito', sans-serif;
   text-align: center;
   font-weight: 400;
 }
@@ -42,26 +47,28 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   z-index: 1;
 
-  &__logo {
-    content: url('../public/logo.svg');
-  }
-
   @include tablet() {
     padding: 32px;
+  }
+  
+  &__logo {
+    content: url('../public/img/logo.webp');
+    max-height: 32px;
 
-    &__logo {
-      content: url('../public/logo-desktop.svg');
-    }
+    @include tablet() {
+      max-height: 64px;
+    }    
   }
 }
 
 .main {
   min-height: 100vh;
-  padding-top: 64px;
+  padding: 64px 16px 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url(../public/clouds.svg) center/cover no-repeat;
+  background: url(../public/clouds.svg) center/cover no-repeat, #fff;
+  background-blend-mode: hard-light;
 }

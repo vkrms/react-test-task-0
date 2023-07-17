@@ -17,8 +17,7 @@
 }
 
 
-@media (max-width: 600px) {
-}
+@media (max-width: 600px) {}
 
 .step {
   margin-bottom: 32px;
@@ -54,7 +53,7 @@
       @include tablet() {
         position: absolute;
         left: -10px;
-        font-family: 'Shnobel', sans-serif;
+        font-family: 'Nunito', sans-serif;
         font-size: 44px;
         line-height: 0.6;
       }
@@ -73,7 +72,7 @@
 .the_title {
   font-size: 27px;
   margin-bottom: 16px;
-  text-transform: lowercase;
+  // text-transform: lowercase;
   max-width: 320px;
 
 

@@ -1,4 +1,4 @@
-import styles from './socials.module.scss'
+import styles from './socialism.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { share } from '../redux/socialsSlice'
 import { updateUser } from '../redux/userSlice'
@@ -11,9 +11,9 @@ function openWindow(social, dispatch, id) {
 
   const url = {
     vk: 'https://vk.com/share.php?url=',
+    ok: 'https://connect.ok.ru/offer?url=',
     fb: 'https://www.facebook.com/sharer/sharer.php?u=',
     tw: 'https://twitter.com/intent/tweet/?url=',
-    ok: 'https://connect.ok.ru/offer?url=',
   }[social]
 
   const popup = window.open(url + window.location.href, 'share', windowCfg)
@@ -21,20 +21,20 @@ function openWindow(social, dispatch, id) {
   // check if popup closed
   const closedInterval = setInterval(async () => {
     if (popup.closed) {
+      clearInterval(closedInterval)
       const user = await API.updateUser({
         id,
         shared: true,
       })
       dispatch(share())
       dispatch(updateUser(user))
-      clearInterval(closedInterval)
     }
   }, 100);
 }
 
 
 export default function Socials() {
-  const socials = ['vk', 'fb', 'tw', 'ok']
+  const socials = ['fb', 'tw']
 
   const dispatch = useDispatch()
   const id = useSelector(state => state.user.id)

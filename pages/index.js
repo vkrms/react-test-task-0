@@ -26,7 +26,7 @@ export default function Home() {
     })()
   }, [dispatch]) // only run on first render
 
-  const shared    = useSelector(state => state.socials.shared)
+  const shared = useSelector(state => state.socials.shared)
   const submitted = useSelector(state => state.form.submitted)
 
   if (shared && submitted) {
@@ -36,18 +36,17 @@ export default function Home() {
   return (
     <div className={styles.home}>
 
-      <h1 className={styles.the_title}>Чтобы выиграть путешествие</h1>
+      <h1 className={styles.the_title}>To win a prize</h1>
 
       <div className={styles.step} disabled={shared}>
-        <div className={styles.step__text}>Поделись с друзьями:</div>
+        <div className={styles.step__text}>Share it with your friends:</div>
 
-        <Socials/>
+        <Socials />
       </div>
 
       <div className={styles.step} disabled={submitted}>
-        <div className={styles.step__text}>Оставь почту:</div>
-
-        <Form/>
+        <div className={styles.step__text}>Leave your email:</div>
+        <Form />
       </div>
 
     </div>
