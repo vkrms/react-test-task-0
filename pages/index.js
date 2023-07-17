@@ -1,4 +1,4 @@
-import Socials from '../components/socials'
+import Socials from '../components/socialism'
 import Form from '../components/form'
 
 import styles from '../styles/home.module.scss'
